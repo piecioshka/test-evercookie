@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    
+    <title>Evercookie - unforgettable cookies</title>
+    
+    <script type="text/javascript" src="library/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="library/swfobject-2.2.min.js"></script>
+    <script type="text/javascript" src="library/evercookie.js"></script>
+    <script type="text/javascript">
+    
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-5140088-13']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    
+    </script>
+</head>
+<body>
+    
+    <script type="text/javascript">
+        var ec = new evercookie();
+        
+        cookies = this.cookies || {};
+        
+        cookies.get = function(dont) {
+            var val = jQuery('.js-default-uid').val();
+            
+            ec.get("uid", function(best, all) {
+                document.getElementById('idtag').innerHTML = best;
+                var txt = document.getElementById('cookies');
+                for (var item in all) {
+                    all[item] = all[item] || '';
+                    txt.innerHTML += item + ' mechanism: <strong>' + all[item] + '</strong><br />';
+                }
+            }, dont);
+        };
+        
+        cookies.create = function(){
+            var val = jQuery('.js-default-uid').val();
+
+            document.getElementById('idtag').innerHTML = '*creating*'; 
+            document.getElementById('cookies').innerHTML = '';
+            
+            ec.set('uid', val);
+            setTimeout(cookies.get, 1000, 1); 
+        };
+        
+        cookies.rediscover = function(){
+            document.getElementById('idtag').innerHTML = '*checking*'; 
+            document.getElementById('cookies').innerHTML = ''; 
+            
+            setTimeout(cookies.get, 300);
+        };
+        
+        cookies.rediscoverWithout = function(){
+            document.getElementById('idtag').innerHTML = '*checking*'; 
+            document.getElementById('cookies').innerHTML = ''; 
+            
+            setTimeout(cookies.get, 300, 1);
+        };
+
+        cookies.get(1);
+        // setTimeout(cookies.get, 500, 1);
+        
+    </script>
+    
+    <strong>Cookie found:</strong><br />
+    
+    <input class="js-default-uid" type="text" value="" /><br /><br />
+    <i>uid</i> = <span id="idtag">currently not set</span><br />
+    
+    <input class="create" type="button" value="Create" onclick="cookies.create();" />
+    <input class="rediscover" type="button" value="Rediscover" onclick="cookies.rediscover();" />
+
+    <pre>
+        <div id="cookies"></div>
+    </pre>
+    
+</body>
+</html>
