@@ -1,5 +1,7 @@
 # test-evercookie
 
+:ledger: Testing https://samy.pl/evercookie/
+
 ## Preview 🎉
 
-<http://piecioshka.github.io/test-evercookie/>
+<https://piecioshka.github.io/test-evercookie/>
